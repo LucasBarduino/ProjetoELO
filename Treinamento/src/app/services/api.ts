@@ -22,6 +22,10 @@ export class ApiService {
     return this.http.post<Contato>(this.baseUrl, contato);
   }
 
+  editarContato(contato: Contato): Observable<Contato> {
+  return this.http.put<Contato>(`${this.baseUrl}/${contato.id}`, contato);
+}
+
   deletarContato(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }

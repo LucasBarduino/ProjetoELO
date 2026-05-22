@@ -23,6 +23,13 @@ public class ContatoService : IContatoService
         return contato;
     }
 
+    public async Task<Contato> EditarAsync(Contato contato)
+    {
+        _context.Contatos.Update(contato);
+        await _context.SaveChangesAsync();
+        return contato;
+    }
+
     public async Task DeletarAsync(int id)
     {
         var contato = await _context.Contatos.FindAsync(id);

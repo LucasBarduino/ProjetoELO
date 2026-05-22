@@ -23,10 +23,20 @@ public class ContatoController : ControllerBase
     public async Task<IActionResult> Adicionar(Contato contato)
         => Ok(await _service.AdicionarAsync(contato));
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Editar(int id, Contato contato)
+    {
+        contato.Id = id; // garante que o ID do body bate com o da URL
+        var contatoAtualizado = await _service.EditarAsync(contato);
+        return Ok(contatoAtualizado);
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> Deletar(int id)
     {
         await _service.DeletarAsync(id);
         return NoContent();
     }
+
+
 }

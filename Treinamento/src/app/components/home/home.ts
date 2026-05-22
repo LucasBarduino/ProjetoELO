@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService, Contato } from '../../services/api';
+import id from '@angular/common/locales/extra/id';
 
 @Component({
   selector: 'app-home',
@@ -46,6 +47,15 @@ adicionar() {
       this.cdr.detectChanges();
     });
   }
+}
+
+editar(contato: Contato) {
+  this.api.editarContato(contato).subscribe((contatoAtualizado) => {
+    this.contatos = this.contatos.map(c => 
+      c.id === contatoAtualizado.id ? contatoAtualizado : c
+    );
+    this.cdr.detectChanges();
+  });
 }
 
   deletar(id: number) {
