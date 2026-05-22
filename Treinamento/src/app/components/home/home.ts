@@ -1,7 +1,7 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../services/api';
+import { ApiService, Contato } from '../../services/api';
 
 @Component({
   selector: 'app-home',
@@ -12,24 +12,38 @@ import { ApiService } from '../../services/api';
 })
 export class Home implements OnInit {
   nome = '';
-  telefone = '';
-  contatos = signal<{ nome: string; telefone: string }[]>([]);
-  dadosApi: any[] = [];
+  numero = '';
+  contatos: Contato[] = [];
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.api.getDados().subscribe((resultado: any) => {
-      this.dadosApi = resultado as any[];
-      console.log(this.dadosApi);
+    this.carregarContatos();
+  }
+
+  carregarContatos() {
+    this.api.getContatos().subscribe(resultado => {
+      this.contatos = resultado;
+      this.cdr.detectChanges();
     });
   }
 
   adicionar() {
-    if (this.nome && this.telefone) {
-      this.contatos.update(lista => [...lista, { nome: this.nome, telefone: this.telefone }]);
-      this.nome = '';
-      this.telefone = '';
+    if (this.nome && this.numero) {
+      const novoContato: Contato = { nome: this.nome, numero: this.numero };
+      this.api.adicionarContato(novoContato).subscribe(contatoSalvo => {
+        this.contatos = [...this.contatos, contatoSalvo];
+        this.nome = '';
+        this.numero = '';
+        this.cdr.detectChanges();
+      });
     }
+  }
+
+  deletar(id: number) {
+    this.api.deletarContato(id).subscribe(() => {
+      this.contatos = this.contatos.filter(c => c.id !== id);
+      this.cdr.detectChanges();
+    });
   }
 }
