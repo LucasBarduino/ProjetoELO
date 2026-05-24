@@ -32,7 +32,7 @@
   .tabela-container {
     max-height: 370px;
     overflow-y: auto;
-    width: 400px;
+    width: 800px;
     margin-top: 20px;
 
     &::-webkit-scrollbar {
@@ -49,7 +49,8 @@
       border-collapse: collapse;
       color: white;
 
-      th, td {
+      th,
+      td {
         padding: 10px 20px;
         border: 1px solid #444;
         text-align: left;
@@ -63,6 +64,40 @@
 
       tr:hover {
         background: #1f1f1f;
+      }
+
+      td:nth-child(1) {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      td:nth-child(2),
+      th:nth-child(2) {
+        width: 140px;
+      }
+
+      td:nth-child(3),
+      th:nth-child(3) {
+        width: 80px;
+        text-align: center;
+      }
+
+      td:nth-child(4),
+      td:nth-child(5),
+      th:nth-child(4),
+      th:nth-child(5) {
+        width: 60px;
+        white-space: nowrap;
+        text-align: center;
+        padding: 6px 8px;
+      }
+
+      td:nth-child(4) button,
+      td:nth-child(5) button {
+        width: auto;
+        padding: 6px 12px;
       }
     }
   }

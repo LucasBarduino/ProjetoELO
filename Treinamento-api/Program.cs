@@ -4,8 +4,12 @@ using treinamento_api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Troque isso:
+// opt.UseSqlite("Data Source=contatos.db")
+
+// Por isso:
 builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseSqlite("Data Source=contatos.db"));
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IContatoService, ContatoService>();
 builder.Services.AddControllers();

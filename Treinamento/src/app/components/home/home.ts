@@ -16,51 +16,54 @@ export class Home implements OnInit {
   numero = '';
   contatos: Contato[] = [];
 
-  constructor(private api: ApiService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private api: ApiService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit() {
     this.carregarContatos();
   }
 
   carregarContatos() {
-    this.api.getContatos().subscribe(resultado => {
+    this.api.getContatos().subscribe((resultado) => {
       this.contatos = resultado;
       this.cdr.detectChanges();
     });
   }
-//
+  //
 
-adicionar() {
-  if (this.nome && this.numero) {
-    const limpo = this.numero.replace(/[\s\-()]/g, '');
-    
-    if (!/^\d{10,13}$/.test(limpo)) {
-      alert('Número inválido. Informe tamebém o país e o DDD Ex: 55 31 9 99999999');
-      return;
+  adicionar() {
+    if (this.nome && this.numero) {
+      const limpo = this.numero.replace(/[\s\-()]/g, '');
+
+      if (!/^\d{10,13}$/.test(limpo)) {
+        alert('Número inválido. Informe tamebém o país e o DDD Ex: 55 31 9 99999999');
+        return;
+      }
+
+      const novoContato: Contato = { nome: this.nome, numero: limpo };
+      this.api.adicionarContato(novoContato).subscribe((contatoSalvo) => {
+        this.contatos = [...this.contatos, contatoSalvo];
+        this.nome = '';
+        this.numero = '';
+        this.cdr.detectChanges();
+      });
     }
+  }
 
-    const novoContato: Contato = { nome: this.nome, numero: limpo };
-    this.api.adicionarContato(novoContato).subscribe(contatoSalvo => {
-      this.contatos = [...this.contatos, contatoSalvo];
-      this.nome = '';
-      this.numero = '';
+  editar(contato: Contato) {
+    this.api.editarContato(contato).subscribe((contatoAtualizado) => {
+      this.contatos = this.contatos.map((c) =>
+        c.id === contatoAtualizado.id ? contatoAtualizado : c,
+      );
       this.cdr.detectChanges();
     });
   }
-}
-
-editar(contato: Contato) {
-  this.api.editarContato(contato).subscribe((contatoAtualizado) => {
-    this.contatos = this.contatos.map(c => 
-      c.id === contatoAtualizado.id ? contatoAtualizado : c
-    );
-    this.cdr.detectChanges();
-  });
-}
 
   deletar(id: number) {
     this.api.deletarContato(id).subscribe(() => {
-      this.contatos = this.contatos.filter(c => c.id !== id);
+      this.contatos = this.contatos.filter((c) => c.id !== id);
       this.cdr.detectChanges();
     });
   }
