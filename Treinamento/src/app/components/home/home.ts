@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService, Contato } from '../../services/api';
@@ -17,7 +17,7 @@ export class Home implements OnInit {
   numero = '';
   contatos: ContatoUI[] = [];
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.carregarContatos();
@@ -26,6 +26,7 @@ export class Home implements OnInit {
   carregarContatos() {
     this.api.getContatos().subscribe((resultado) => {
       this.contatos = resultado.map((c) => ({ ...c, editando: false }));
+      this.cdr.detectChanges();
     });
   }
 
@@ -41,6 +42,7 @@ export class Home implements OnInit {
         this.contatos = [...this.contatos, { ...contatoSalvo, editando: false }];
         this.nome = '';
         this.numero = '';
+        this.cdr.detectChanges();
       });
     }
   }
@@ -51,6 +53,7 @@ export class Home implements OnInit {
         ? { ...c, editando: true, _backup: { id: c.id, nome: c.nome, numero: c.numero } }
         : c,
     );
+    this.cdr.detectChanges();
   }
 
   salvar(contato: ContatoUI) {
@@ -58,6 +61,7 @@ export class Home implements OnInit {
       this.contatos = this.contatos.map((c) =>
         c.id === contatoAtualizado.id ? { ...contatoAtualizado, editando: false } : c,
       );
+      this.cdr.detectChanges();
     });
   }
 
@@ -65,11 +69,13 @@ export class Home implements OnInit {
     this.contatos = this.contatos.map((c) =>
       c.id === contato.id && c._backup ? { ...c._backup, editando: false } : c,
     );
+    this.cdr.detectChanges();
   }
 
   deletar(id: number) {
     this.api.deletarContato(id).subscribe(() => {
       this.contatos = this.contatos.filter((c) => c.id !== id);
+      this.cdr.detectChanges();
     });
   }
 }
