@@ -101,4 +101,17 @@
       }
     }
   }
+  .acoes {
+    &.editando {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+
+      button {
+        padding: 2px 6px;
+        font-size: 14px;
+        line-height: 1;
+      }
+    }
+  }
 }
