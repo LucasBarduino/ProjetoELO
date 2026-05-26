@@ -1,9 +1,19 @@
+body{
+  background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   padding-top: 100px;
+
+  h1{
+    font-family: Arial;
+    font-size: 36px;
+    margin-bottom: 0;
+  }
 
   input {
     width: 250px;
@@ -15,7 +25,7 @@
   }
 
   button {
-    width: 250px;
+    width: 270px;
     padding: 10px;
     border-radius: 6px;
     border: none;

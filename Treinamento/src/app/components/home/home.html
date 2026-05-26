@@ -1,9 +1,12 @@
 <main>
   <div class="container">
+    
+
     <h1>Lista Telefônica</h1>
+    <p><small>Sua incrível lista de contatos feita com Angular ❤️</small></p>
     <input type="text" placeholder="Nome" [(ngModel)]="nome" />
     <input type="tel" placeholder="Telefone" [(ngModel)]="numero" />
-    <button (click)="adicionar()">Adicionar</button>
+    <button class="botao-adicionar" (click)="adicionar()">Adicionar</button>
 
     @if (contatos.length > 0) {
       <div class="tabela-container">
