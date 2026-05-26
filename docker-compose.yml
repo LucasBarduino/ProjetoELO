@@ -1,0 +1,48 @@
+services:
+
+  # --------------- BANCO DE DADOS ---------------
+  db:
+    image: postgres:16-alpine
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "071212"
+      POSTGRES_DB: projetoelo
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d projetoelo"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # --------------- BACKEND ---------------
+  backend:
+    build:
+      context: ./Treinamento-api
+      dockerfile: Dockerfile
+    container_name: backend_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=projetoelo;Username=postgres;Password=071212
+    ports:
+      - "5126:5126"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # --------------- FRONTEND ---------------
+  frontend:
+    build:
+      context: ./Treinamento
+      dockerfile: Dockerfile
+    container_name: frontend_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
