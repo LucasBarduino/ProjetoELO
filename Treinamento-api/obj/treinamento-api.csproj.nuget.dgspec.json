@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\LucasBarduino\\Documents\\treino1\\ProjetoELO\\Treinamento-api\\treinamento-api.csproj": {}
+    "C:\\Users\\Matheus\\Desktop\\Meus Arquivos\\1. GitHub\\ProjetoELO\\Treinamento-api\\treinamento-api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\LucasBarduino\\Documents\\treino1\\ProjetoELO\\Treinamento-api\\treinamento-api.csproj": {
+    "C:\\Users\\Matheus\\Desktop\\Meus Arquivos\\1. GitHub\\ProjetoELO\\Treinamento-api\\treinamento-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LucasBarduino\\Documents\\treino1\\ProjetoELO\\Treinamento-api\\treinamento-api.csproj",
+        "projectUniqueName": "C:\\Users\\Matheus\\Desktop\\Meus Arquivos\\1. GitHub\\ProjetoELO\\Treinamento-api\\treinamento-api.csproj",
         "projectName": "treinamento-api",
-        "projectPath": "C:\\Users\\LucasBarduino\\Documents\\treino1\\ProjetoELO\\Treinamento-api\\treinamento-api.csproj",
-        "packagesPath": "C:\\Users\\LucasBarduino\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LucasBarduino\\Documents\\treino1\\ProjetoELO\\Treinamento-api\\obj\\",
+        "projectPath": "C:\\Users\\Matheus\\Desktop\\Meus Arquivos\\1. GitHub\\ProjetoELO\\Treinamento-api\\treinamento-api.csproj",
+        "packagesPath": "C:\\Users\\Matheus\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Matheus\\Desktop\\Meus Arquivos\\1. GitHub\\ProjetoELO\\Treinamento-api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\LucasBarduino\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Matheus\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
